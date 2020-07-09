@@ -4,10 +4,10 @@ Random stuff in Kotlin language
 # Not null check for multiple arguments. 
 In this implementation, one can use existing classes `Pair` and `Triple`.
 ```kotlin
-inline fun <reified T1, reified T2> Pair<T1?, T2?>.takeIfNotNull(): Pair<T1, T2>? {
-  first ?: return null
-  second ?: return null
-  return Pair(first!!, second!!)
+inline fun <reified A, reified B> Pair<A?, B?>.takeIfNotNull(): Pair<A, B>? {
+  val a = first ?: return null
+  val b = second ?: return null
+  return Pair(a, b)
 }
 ```
 ```kotlin
@@ -22,8 +22,8 @@ fun main() {
 
 For shortcut, one could use: 
 ```kotlin
-inline fun <reified T1, reified T2, R> Pair<T1?, T2?>.runIfNotNull(body: (T1, T2)->R): R? {
-  return takeIfNotNull()?.let { (t1, t2) -> body(t1, t2) }
+inline fun <reified A, reified B, R> Pair<A?, B?>.runIfNotNull(body: (A, B)->R): R? {
+  return takeIfNotNull()?.let { (a, b) -> body(a, b) }
 }
 ```
 ```kotlin
